@@ -11,9 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { MatButtonModule, MatFormFieldModule, MatInputModule,
-  MatSelectModule, MatRadioModule, MatCheckboxModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MockBackendService } from './services/mockbackend.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,14 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule, MatInputModule, MatSelectModule,
-    MatRadioModule, MatFormFieldModule, MatCheckboxModule,
-    InMemoryWebApiModule.forRoot(MockBackendService),
+    // InMemoryWebApiModule.forRoot(MockBackendService),
     IonicStorageModule.forRoot()
   ],
   providers: [
