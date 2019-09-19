@@ -9,18 +9,41 @@ export class MockBackendService implements InMemoryDbService {
   constructor() { }
 
   createDb() {
-    const users = [
+    const products = [
       {
         id: 1,
-        username: 'biggy',
-        password: 'biggy',
-        email: 'nuttapon1980@gmail.com',
-        firstName: 'Biggy',
-        lastName: 'Nuttapon',
-        birthDate: '1985-07-01',
-        country: 'Thailand',
-        gender: 'M'
-      }
+        productCode: 'prod-1',
+        productName: 'Product 1',
+        unitPrice: 120.50,
+        unit: 'pcs'
+      },
+      {
+        id: 2,
+        productCode: 'prod-2',
+        productName: 'Product 2',
+        unitPrice: 75.0,
+        unit: 'pcs'
+      },
+      {
+        id: 3,
+        productCode: 'prod-3',
+        productName: 'Product 3',
+        unitPrice: 120.50,
+        unit: 'pcs'
+      },
+      {
+        id: 4,
+        productCode: 'prod-4',
+        productName: 'Product 4',
+        unitPrice: 86,
+        unit: 'pcs'
+      },
+      {
+        id: 5,
+        productCode: 'prod-5',
+        productName: 'Product 5',
+        unitPrice: 111
+      },
     ];
 
     const quotations = [
@@ -66,7 +89,7 @@ export class MockBackendService implements InMemoryDbService {
     ];
 
     return {
-      quotations, users
+      quotations, products
     };
   }
 }

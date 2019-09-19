@@ -26,7 +26,8 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating" color="primary">Quotation Date</ion-label>
-      <ion-datetime formControlName="quotationDate" displayFormat="DD/MM/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
+      <ion-datetime formControlName="quotationDate" displayFormat="DD/MM/YYYY" min="1994-03-14" max="2012-12-09">
+      </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label position="floating" color="primary">Expire Date</ion-label>
@@ -51,16 +52,54 @@
         <ion-select-option value="0">Select</ion-select-option>
         <ion-select-option value="biggy">Biggy Nuttapon</ion-select-option>
         <ion-select-option value="sales">Sales</ion-select-option>
-      </ion-select>>
+      </ion-select>
     </ion-item>
-    <div>
-      <ion-button color="success" type="button" expand="block" (click)="addItem()">
-        <ion-icon slot="start" name="add-circle"></ion-icon>Add Item
-      </ion-button>
+    <h3 padding>Quotation Line</h3>
+    <div formArrayName="quotationItems" *ngFor="let item of quotationLines.controls; let i=index">
+      <div class="form-group p-b-10" [formGroupName]="i">
+        <ion-item>
+          <ion-label color="primary">Product</ion-label>
+          <ion-select formControlName="productId" class="form-control" placeholder="Select Product" #ps
+            (change)="GetProductInfo(ps, item)">
+            <ion-select-option *ngFor="let prod of products" [value]="prod.productId">{{ prod.productName }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Product Name</ion-label>
+          <ion-input type="number" formControlName="productName" class="form-control ion-text-right"
+            (change)="calculateLineTotal(item)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Qty</ion-label>
+          <ion-input type="number" formControlName="qty" class="form-control ion-text-right"
+            (change)="calculateLineTotal(item)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Unit Price</ion-label>
+          <ion-input type="number" formControlName="unitPrice" class="form-control ion-text-right"
+            (change)="calculateLineTotal(item)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Discount</ion-label>
+          <ion-input type="number" formControlName="discount" class="form-control ion-text-right"
+            (change)="calculateLineTotal(item)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">Line Total</ion-label>
+          <ion-input type="number" formControlName="lineTotal" class="form-control ion-text-right"></ion-input>
+        </ion-item>
+        <ion-button expand="block" color="danger" (click)="removeItem(i)">
+          <ion-icon name="trash"></ion-icon>
+          Delete</ion-button>
+      </div>
     </div>
+    <ion-button color="success" type="button" (click)="addItem()">
+      <ion-icon slot="end" name="add-circle"></ion-icon>Add Item
+    </ion-button>
     <ion-item>
       <ion-label position="floating" color="primary">Subtotal</ion-label>
-      <ion-input type="number" text-right readonly formControlName="subtotal"></ion-input>
+      <ion-input type="number" class="ion-text-right" readonly formControlName="subtotal"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating" color="primary">Other Charges</ion-label>

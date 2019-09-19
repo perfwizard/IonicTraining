@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators, ValidatorFn, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, FormArray, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class QuotationCreatePage implements OnInit {
 
   quotationForm: FormGroup;
+  products: [{productId: 1, productName: 'prod-1'}, {productId: 2, productName: 'prod-2'}];
 
   // Property
-  get quotationLine(): FormArray {
+  get quotationLines(): FormArray {
     return this.quotationForm.get('quotationItems') as FormArray;
   }
 
@@ -20,7 +21,6 @@ export class QuotationCreatePage implements OnInit {
   ngOnInit() {
     this.createForm();
   }
-
   createForm() {
     this.quotationForm = this.fb.group({
       quotationNo: ['', Validators.required],
@@ -38,7 +38,7 @@ export class QuotationCreatePage implements OnInit {
 
     });
   }
-  createQuotationItems() {
+  createQuotationItems(): FormGroup {
     return this.fb.group({
       productId: [0, Validators.required],
       productName: ['', Validators.required],
@@ -50,11 +50,20 @@ export class QuotationCreatePage implements OnInit {
   }
 
   addItem() {
-    this.quotationLine.push(this.createQuotationItems());
+    this.quotationLines.push(this.createQuotationItems());
   }
   removeItem(i: number) {
-    this.quotationLine.removeAt(i);
+    this.quotationLines.removeAt(i);
   }
+
+  GetProductInfo(ctrl: HTMLInputElement, quotationLine) {
+
+  }
+
+  calculateLineTotal(line: AbstractControl) {
+
+  }
+
   submit() {
 
   }
