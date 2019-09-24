@@ -1,4 +1,6 @@
+import { QuotationsService } from './../../services/quotations.service';
 import { Component, OnInit } from '@angular/core';
+import { Quotation } from 'src/app/models/quotation';
 
 @Component({
   selector: 'app-quotation-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuotationListPage implements OnInit {
 
-  constructor() { }
+  quotationList: Quotation[];
+  constructor(private quotationService: QuotationsService) { }
 
   ngOnInit() {
+    this.quotationService.getQuotations().subscribe(data => {
+      this.quotationList = data;
+    });
   }
 
 }
