@@ -1,5 +1,7 @@
 import { FormBuilder, FormGroup, Validators, ValidatorFn, FormArray, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { QuotationsService } from 'src/app/services/quotations.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quotation-create',
@@ -9,14 +11,19 @@ import { Component, OnInit } from '@angular/core';
 export class QuotationCreatePage implements OnInit {
 
   quotationForm: FormGroup;
-  products: [{productId: 1, productName: 'prod-1'}, {productId: 2, productName: 'prod-2'}];
-
+  products: [{ productId: 1, productName: 'prod-1' }, { productId: 2, productName: 'prod-2' }];
+  qoutationHeader: any;
+  qoutationDetail: any;
   // Property
   get quotationLines(): FormArray {
     return this.quotationForm.get('quotationItems') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private qtService: QuotationsService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.createForm();
@@ -64,7 +71,19 @@ export class QuotationCreatePage implements OnInit {
 
   }
 
-  submit() {
+  submit(quotationForm: FormGroup) {
+    this.qoutationHeader = quotationForm.value;
+    var arrayControl = this.quotationForm.get('quotationItems') as FormArray;
+    this.qoutationDetail = arrayControl.value;
+
+    this.qtService.SaveQoutation(this.qoutationHeader, this.qoutationDetail).subscribe(data => {
+      console.log("test");
+      //this.router.navigateByUrl('quotation-view');
+      console.log(data);
+    });
+
 
   }
+
+
 }

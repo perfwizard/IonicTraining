@@ -1,3 +1,4 @@
+import { QuotationsService } from './../../services/quotations.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuotationViewPage implements OnInit {
 
-  constructor() { }
+  constructor(
+  private qts: QuotationsService
+    ) { }
 
   ngOnInit() {
+    this.getQuotationsNew("qheader", "qdetail");
   }
+
+
+  getQuotationsNew(qheader:any, qdetail:any){
+    this.qts.getQuotationsNew(qheader, qdetail).subscribe(data => {
+      if (data) {
+        console.log("Data:", data);
+      }
+    });
+  }
+
 
 }

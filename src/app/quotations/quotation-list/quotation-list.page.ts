@@ -1,4 +1,6 @@
+import { QuotationsService } from './../../services/quotations.service';
 import { Component, OnInit } from '@angular/core';
+import { FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-quotation-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuotationListPage implements OnInit {
 
-  constructor() { }
+  header: any;
+  detail: any;
+  constructor(private qts: QuotationsService) 
+  { }
 
   ngOnInit() {
   }
 
+  
 }
